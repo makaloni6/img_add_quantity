@@ -1,5 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
+import pickle
+
 
 def textSetter():
     text_template = '{}\nx{}'
@@ -12,20 +14,33 @@ def coverageCheck(bbox: list, xy: list):
     else:
         return False
 
-def getImages()->list:
-    
 
-def getContent()->dict:
+def getImages() -> list:
+    files = os.listdir('./imgs/')
+    return files
+
+
+def getContent() -> dict:
     pass
+
+
+def getCodes() -> dict:
+    with open('code_dict.pickle') as f:
+        code_dict = pickle.load(f)
+    return code_dict
+
 
 def main():
     text_template, font = textSetter()
     imgs = getImages()
-    contents = getContent(img)
+    contents = getContent()
+    code_dict = getCodes()
     errorImgs = []
 
     for img in imgs:
-        img = Image.open('img/{}'.format(img_name))
+
+        img = Image.open('./imgs/{}'.format(img))
+        id = img[:-4]
         
         xy = list(img.size)
         draw = ImageDraw.Draw(img)
@@ -40,8 +55,11 @@ def main():
             continue
         
         # 描画
-        draw.text((x - bbox[2], y - bbox[3]), text, font=font)
-        img.save('img/{}.jpg'.format(img_name))
+        draw.text((xy[0] - bbox[2], xy[1] - bbox[3]), text, font=font)
+
+        img_name = code_dict[id]
+        img.save('imgs/{}.jpg'.format(img_name))
+
 
 if __name__ == '__main__':
     main()
