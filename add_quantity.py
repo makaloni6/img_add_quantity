@@ -21,11 +21,14 @@ def getImages() -> list:
 
 
 def getContent() -> dict:
-    pass
+    with open('./pickle/title.pickle', 'rb') as f:
+        content_dict = pickle.load(f)
+    
+    return contents
 
 
 def getCodes() -> dict:
-    with open('code_dict.pickle') as f:
+    with open('./pickle/code_dict.pickle', 'rb') as f:
         code_dict = pickle.load(f)
     return code_dict
 
