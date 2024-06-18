@@ -49,9 +49,9 @@ def main():
         
         xy = list(img.size)
         if xy[0] > 2000:
-            font = ImageFont.truetype('ヒラギノ角ゴシック W3.ttc', 300)
+            font = ImageFont.truetype('ヒラギノ角ゴシック W6.ttc', index=3, size=300)
         else:
-            font = ImageFont.truetype('ヒラギノ角ゴシック W3.ttc', 200)
+            font = ImageFont.truetype('ヒラギノ角ゴシック W6.ttc', index=3, size=200)
         draw = ImageDraw.Draw(img)
 
         if id not in contents:
@@ -76,6 +76,8 @@ def main():
         
         img.save('modifiedImgs/{}.jpg'.format(img_name))
 
-
+    with open('error.pickle', 'wb') as f:
+        pickle.dump(errorImgs, f)
+    print(len(errorImgs))
 if __name__ == '__main__':
     main()
