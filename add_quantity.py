@@ -44,7 +44,7 @@ def getCodes(acc: str) -> dict:
 
 
 def main():
-    acc = input()
+    acc = input('acc?->')
     text_template, font = textSetter()
     imgs = getImages()
     contents = getContent()
